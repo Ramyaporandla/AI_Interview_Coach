@@ -1,0 +1,21 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- FAANG-level ultra-tech SaaS logo -->
+  <!-- Minimal, geometric, enterprise-grade design -->
+  
+  <!-- Outer circle - subtle container -->
+  <circle cx="24" cy="24" r="20" stroke="#38240D" stroke-width="1.5" fill="none" opacity="0.2"/>
+  
+  <!-- Abstract "A" - geometric, tech-forward -->
+  <path d="M24 10L32 30H28L26.5 25.5H21.5L20 30H16L24 10Z" fill="#38240D"/>
+  
+  <!-- Inner accent - negative space triangle -->
+  <path d="M22 20H26L24 16L22 20Z" fill="#C05800"/>
+  
+  <!-- Tech accent - minimal neural node -->
+  <circle cx="24" cy="22" r="2" fill="#C05800" opacity="0.9"/>
+  
+  <!-- Subtle connection lines - minimal tech feel -->
+  <line x1="24" y1="24" x2="24" y2="28" stroke="#C05800" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+  <line x1="20" y1="26" x2="24" y2="28" stroke="#C05800" stroke-width="1" stroke-linecap="round" opacity="0.4"/>
+  <line x1="28" y1="26" x2="24" y2="28" stroke="#C05800" stroke-width="1" stroke-linecap="round" opacity="0.4"/>
+</svg>

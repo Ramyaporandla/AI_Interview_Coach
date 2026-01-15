@@ -1,0 +1,13 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Ultra-minimal logo mark - for favicon, app icon -->
+  <!-- Stylized "AI" monogram using negative space -->
+  
+  <!-- Abstract "A" - geometric, minimal -->
+  <path d="M16 4L22 24H20L19 20H13L12 24H10L16 4Z" fill="#38240D"/>
+  
+  <!-- Inner accent - negative space triangle -->
+  <path d="M14 14H18L16 10L14 14Z" fill="#C05800"/>
+  
+  <!-- Minimal tech accent -->
+  <circle cx="16" cy="16" r="1.5" fill="#C05800" opacity="0.8"/>
+</svg>

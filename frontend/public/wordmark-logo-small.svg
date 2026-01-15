@@ -1,0 +1,18 @@
+<svg width="160" height="24" viewBox="0 0 160 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Small wordmark logo - for navbar, compact spaces -->
+  <!-- Works at 24px height -->
+  
+  <!-- Subtle AI accent - minimal geometric node -->
+  <g transform="translate(0, 8)">
+    <circle cx="4" cy="4" r="3" stroke="#C05800" stroke-width="0.8" fill="none" opacity="0.6"/>
+    <circle cx="4" cy="4" r="2" fill="#C05800" opacity="0.8"/>
+    <circle cx="4" cy="4" r="0.8" fill="#38240D"/>
+  </g>
+  
+  <!-- Wordmark text -->
+  <text x="14" y="16" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="700" fill="#38240D" letter-spacing="-0.01em">
+    Interview Coach
+  </text>
+</svg>
+
+

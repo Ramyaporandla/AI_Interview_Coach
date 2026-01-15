@@ -1,0 +1,24 @@
+<svg width="240" height="48" viewBox="0 0 240 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- FAANG-level horizontal logo with icon + text -->
+  <!-- Enterprise-grade professional design -->
+  
+  <!-- Logo Icon (left side) -->
+  <g transform="translate(0, 0)">
+    <!-- Outer circle -->
+    <circle cx="24" cy="24" r="20" stroke="#38240D" stroke-width="1.5" fill="none" opacity="0.2"/>
+    <!-- Abstract "A" -->
+    <path d="M24 10L32 30H28L26.5 25.5H21.5L20 30H16L24 10Z" fill="#38240D"/>
+    <!-- Inner accent -->
+    <path d="M22 20H26L24 16L22 20Z" fill="#C05800"/>
+    <!-- Tech accent -->
+    <circle cx="24" cy="22" r="2" fill="#C05800" opacity="0.9"/>
+  </g>
+  
+  <!-- Text (right side) -->
+  <text x="56" y="20" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="18" font-weight="700" fill="#38240D" letter-spacing="-0.5">
+    AI Interview Coach
+  </text>
+  <text x="56" y="36" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="10" font-weight="500" fill="#38240D" opacity="0.6" letter-spacing="0">
+    AI-Powered Interview Preparation
+  </text>
+</svg>

@@ -1,0 +1,15 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Ultra-minimal version - abstract "AI" monogram -->
+  <!-- Stripe/OpenAI level minimalism -->
+  
+  <!-- Abstract "A" using negative space -->
+  <path d="M24 8L32 28H28L26 22H22L20 28H16L24 8Z" fill="#38240D"/>
+  
+  <!-- Inner triangle - negative space accent -->
+  <path d="M22 18H26L24 14L22 18Z" fill="#C05800"/>
+  
+  <!-- Subtle tech accent - minimal dot -->
+  <circle cx="24" cy="20" r="1.5" fill="#C05800" opacity="0.8"/>
+</svg>
+
+

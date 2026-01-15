@@ -1,0 +1,906 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* CSS Variables for Light and Dark Themes */
+:root {
+  /* Light Theme */
+  --bg-primary: #f0f9ff; /* sky-50 */
+  --bg-secondary: #e0f2fe; /* sky-100 */
+  --bg-tertiary: #bae6fd; /* sky-200 */
+  --surface: rgba(255, 255, 255, 0.9);
+  --surface-card: rgba(255, 255, 255, 0.7);
+  --border: rgba(203, 213, 225, 0.5); /* gray-300 */
+  --border-strong: rgba(148, 163, 184, 0.6); /* gray-400 */
+  --text-primary: #1f2937; /* gray-800 */
+  --text-secondary: #4b5563; /* gray-600 */
+  --text-muted: #6b7280; /* gray-500 */
+  --text-placeholder: #9ca3af; /* gray-400 */
+  --link: #E35336;
+  --link-hover: #A0522D;
+  --accent: #E35336;
+  --accent-hover: #A0522D;
+}
+
+.dark {
+  /* Dark Theme - High Contrast */
+  --bg-primary: #030712; /* gray-950 */
+  --bg-secondary: #111827; /* gray-900 */
+  --bg-tertiary: #1f2937; /* gray-800 */
+  --surface: rgba(17, 24, 39, 0.95); /* gray-900 */
+  --surface-card: rgba(17, 24, 39, 0.85); /* gray-900 */
+  --border: rgba(55, 65, 81, 0.6); /* gray-700 */
+  --border-strong: rgba(75, 85, 99, 0.8); /* gray-600 */
+  --text-primary: #f9fafb; /* gray-50 - near white for high contrast */
+  --text-secondary: #e5e7eb; /* gray-200 - very light gray */
+  --text-muted: #d1d5db; /* gray-300 - still readable */
+  --text-placeholder: #9ca3af; /* gray-400 */
+  --link: #E35336;
+  --link-hover: #F97316; /* lighter orange for dark mode */
+  --accent: #E35336;
+  --accent-hover: #F97316;
+}
+
+@layer utilities {
+  .transition-theme {
+    transition-property: background-color, border-color, color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+  }
+  
+  /* Smooth cursor pointer for interactive elements */
+  * {
+    cursor: default;
+  }
+  
+  button, a, [role="button"], .cursor-pointer {
+    cursor: pointer;
+  }
+  
+  button:disabled, [disabled] {
+    cursor: not-allowed;
+  }
+  
+  /* Enhanced hover glow effect */
+  .glow-cyan {
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
+    transition: box-shadow 0.25s ease;
+  }
+  
+  .glow-cyan:hover {
+    box-shadow: 0 0 30px rgba(6, 182, 212, 0.5), 0 0 60px rgba(6, 182, 212, 0.2);
+  }
+  
+  /* Glass morphism effect */
+  .glass {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+  }
+  
+  .dark .glass {
+    background: rgba(17, 24, 39, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}
+
+@layer base {
+  /* Global defaults using CSS variables */
+  html {
+    @apply transition-theme;
+    background-color: var(--bg-primary);
+  }
+  
+  html.dark {
+    background-color: var(--bg-primary);
+  }
+  
+  body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    @apply antialiased transition-theme;
+  }
+  
+  /* Force all text elements to use CSS variables in dark mode */
+  .dark {
+    color-scheme: dark;
+  }
+  
+  .dark * {
+    color: inherit;
+  }
+  
+  /* Ensure all text elements inherit proper colors */
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--text-primary) !important;
+  }
+  
+  .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
+    color: var(--text-primary) !important;
+  }
+  
+  p, span, div, li, td, th, label {
+    color: inherit;
+  }
+  
+  /* Force text visibility in dark mode */
+  .dark p, .dark span, .dark div, .dark li, .dark td, .dark th {
+    color: var(--text-primary);
+  }
+  
+  /* Override any gray-700, gray-800, gray-900 in dark mode */
+  .dark .text-gray-700,
+  .dark .text-gray-800,
+  .dark .text-gray-900 {
+    color: var(--text-primary) !important;
+  }
+  
+  /* Links */
+  a {
+    color: var(--link);
+    transition: color 0.2s ease;
+  }
+  
+  a:hover {
+    color: var(--link-hover);
+    text-decoration: underline;
+  }
+  
+  .dark a {
+    color: var(--link);
+  }
+  
+  /* SVG icons inherit text color */
+  svg {
+    fill: currentColor;
+  }
+  
+  /* Placeholder text */
+  ::placeholder {
+    color: var(--text-placeholder);
+    opacity: 1;
+  }
+  
+  .dark ::placeholder {
+    color: var(--text-placeholder);
+    opacity: 1;
+  }
+  
+  /* Selection */
+  ::selection {
+    background-color: var(--accent);
+    color: white;
+  }
+  
+  /* Ensure cards have visible text */
+  .dark .card,
+  .dark .card * {
+    color: var(--text-primary) !important;
+  }
+  
+  /* Ensure GlassCard has visible text */
+  .dark [class*="GlassCard"],
+  .dark [class*="GlassCard"] *,
+  .dark [class*="glass"],
+  .dark [class*="glass"] * {
+    color: var(--text-primary) !important;
+  }
+  
+  /* Force all text in dark mode to be visible - but respect explicit color classes */
+  .dark {
+    --tw-text-opacity: 1;
+  }
+  
+  /* Override gray text colors that would be invisible in dark mode */
+  .dark .text-gray-700:not(.no-dark-override),
+  .dark .text-gray-800:not(.no-dark-override),
+  .dark .text-gray-900:not(.no-dark-override) {
+    color: var(--text-primary) !important;
+  }
+  
+  /* Ensure text elements without explicit dark variants get proper color */
+  .dark p:not([class*="text-"]),
+  .dark span:not([class*="text-"]),
+  .dark div:not([class*="text-"]):not([class*="bg-"]):not([class*="border-"]) {
+    color: var(--text-primary);
+  }
+  
+  /* But preserve colored text elements */
+  .dark .text-[#E35336],
+  .dark .text-red-500,
+  .dark .text-green-500,
+  .dark .text-yellow-500,
+  .dark .text-blue-500,
+  .dark .text-cyan-500,
+  .dark .text-primary-500,
+  .dark .text-accent-500 {
+    color: inherit !important;
+  }
+  
+  /* Ensure inputs and textareas have proper styling */
+  .dark input:not([type="checkbox"]):not([type="radio"]),
+  .dark textarea,
+  .dark select {
+    background-color: var(--surface) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border) !important;
+  }
+  
+  .dark input::placeholder,
+  .dark textarea::placeholder {
+    color: var(--text-placeholder) !important;
+  }
+}
+
+@layer components {
+  /* Global Floating Button Styles - Applied to all buttons */
+  button:not(:disabled),
+  .btn:not(:disabled),
+  [role="button"]:not(:disabled) {
+    position: relative;
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+                all 0.2s ease;
+    /* Default: Floating feel with subtle shadow */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1),
+                0 1px 3px rgba(0, 0, 0, 0.08);
+    transform: translateY(0);
+  }
+  
+  .dark button:not(:disabled),
+  .dark .btn:not(:disabled),
+  .dark [role="button"]:not(:disabled) {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3),
+                0 1px 3px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Hover: Lift up + stronger shadow */
+  button:not(:disabled):hover,
+  .btn:not(:disabled):hover,
+  [role="button"]:not(:disabled):hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15),
+                0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .dark button:not(:disabled):hover,
+  .dark .btn:not(:disabled):hover,
+  .dark [role="button"]:not(:disabled):hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4),
+                0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Active (click): Press down slightly */
+  button:not(:disabled):active,
+  .btn:not(:disabled):active,
+  [role="button"]:not(:disabled):active {
+    transform: translateY(1px);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12),
+                0 1px 2px rgba(0, 0, 0, 0.08);
+    transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .dark button:not(:disabled):active,
+  .dark .btn:not(:disabled):active,
+  .dark [role="button"]:not(:disabled):active {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4),
+                0 1px 2px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Disabled buttons - no floating effect */
+  button:disabled,
+  .btn:disabled,
+  [role="button"]:disabled {
+    transform: translateY(0) !important;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+    opacity: 0.5;
+  }
+  
+  /* Opt-out class for buttons that shouldn't float (e.g., icon-only buttons) */
+  .btn-flat,
+  button.btn-flat {
+    box-shadow: none !important;
+    transform: translateY(0) !important;
+  }
+  
+  .btn-flat:hover,
+  button.btn-flat:hover {
+    transform: translateY(0) !important;
+    box-shadow: none !important;
+  }
+  
+  .btn-flat:active,
+  button.btn-flat:active {
+    transform: translateY(0) !important;
+  }
+  
+  /* Primary Button - Enhanced with floating feel */
+  .btn-primary {
+    @apply px-6 py-3 bg-gradient-to-r from-cyan-500 via-cyan-600 to-blue-600 text-white rounded-xl font-semibold hover:from-cyan-400 hover:via-cyan-500 hover:to-blue-500 dark:from-cyan-500 dark:via-cyan-600 dark:to-blue-600 dark:hover:from-cyan-400 dark:hover:via-cyan-500 dark:hover:to-blue-500 transition-all duration-[250ms] border-2 border-cyan-400/50 hover:border-cyan-300/70 cursor-pointer;
+    position: relative;
+    overflow: hidden;
+    /* Override default button shadow with stronger one */
+    box-shadow: 0 4px 12px rgba(6, 182, 212, 0.25),
+                0 2px 6px rgba(6, 182, 212, 0.15);
+  }
+  
+  .dark .btn-primary {
+    box-shadow: 0 4px 12px rgba(6, 182, 212, 0.35),
+                0 2px 6px rgba(6, 182, 212, 0.25);
+  }
+  
+  .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 24px rgba(6, 182, 212, 0.35),
+                0 6px 12px rgba(6, 182, 212, 0.25),
+                0 0 0 1px rgba(6, 182, 212, 0.1);
+  }
+  
+  .dark .btn-primary:hover {
+    box-shadow: 0 12px 24px rgba(6, 182, 212, 0.45),
+                0 6px 12px rgba(6, 182, 212, 0.35),
+                0 0 0 1px rgba(6, 182, 212, 0.2);
+  }
+  
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s ease;
+  }
+  
+  .btn-primary:hover::before {
+    left: 100%;
+  }
+  
+  .btn-primary:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 6px rgba(6, 182, 212, 0.3),
+                0 1px 3px rgba(6, 182, 212, 0.2);
+  }
+  
+  /* Secondary Button - Enhanced with floating feel */
+  .btn-secondary {
+    @apply px-6 py-3 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm text-cyan-600 dark:text-cyan-400 border-2 border-cyan-400/50 dark:border-cyan-500/50 rounded-xl font-semibold hover:bg-cyan-50/60 dark:hover:bg-cyan-900/30 transition-all duration-[250ms] cursor-pointer;
+    position: relative;
+    overflow: hidden;
+    /* Override default button shadow */
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1),
+                0 1px 4px rgba(0, 0, 0, 0.08);
+  }
+  
+  .dark .btn-secondary {
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3),
+                0 1px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  .btn-secondary:hover {
+    transform: translateY(-3px);
+    border-color: rgba(6, 182, 212, 0.6);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12),
+                0 4px 8px rgba(0, 0, 0, 0.08),
+                0 0 0 1px rgba(6, 182, 212, 0.1);
+  }
+  
+  .dark .btn-secondary:hover {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4),
+                0 4px 8px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(6, 182, 212, 0.2);
+  }
+  
+  .btn-secondary:active {
+    transform: translateY(1px);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1),
+                0 1px 2px rgba(0, 0, 0, 0.08);
+  }
+  
+  .dark .btn-secondary:active {
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3),
+                0 1px 2px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Dashboard Card Animations - Premium & Subtle */
+  .dash-card {
+    @apply transition-all duration-300 ease-out;
+    position: relative;
+    overflow: hidden;
+    /* Default: Subtle floating feel */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08),
+                0 2px 6px rgba(0, 0, 0, 0.05);
+    transform: translateY(0);
+  }
+  
+  .dark .dash-card {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2),
+                0 2px 6px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Hover: Lift + Soft Glow */
+  .dash-card:hover {
+    transform: translateY(-4px) !important;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12),
+                0 6px 12px rgba(0, 0, 0, 0.08),
+                0 0 0 1px rgba(6, 182, 212, 0.1);
+  }
+  
+  .dark .dash-card:hover {
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3),
+                0 6px 12px rgba(0, 0, 0, 0.2),
+                0 0 0 1px rgba(6, 182, 212, 0.2);
+  }
+  
+  /* Shimmer Effect - Only visible on hover */
+  .dash-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.4),
+      transparent
+    );
+    transition: left 0.6s ease;
+    pointer-events: none;
+    opacity: 0;
+  }
+  
+  .dark .dash-card::after {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.15),
+      transparent
+    );
+  }
+  
+  .dash-card:hover::after {
+    left: 100%;
+    opacity: 1;
+  }
+  
+  /* Respect prefers-reduced-motion */
+  @media (prefers-reduced-motion: reduce) {
+    .dash-card,
+    .dash-card:hover {
+      transform: translateY(0);
+      transition: none;
+    }
+    
+    .dash-card::after {
+      display: none;
+    }
+  }
+  
+  /* Pulsing Status Dot */
+  .status-dot {
+    @apply inline-block w-2 h-2 rounded-full;
+    animation: pulse-dot 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  
+  .status-dot.ready {
+    @apply bg-green-500;
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+  }
+  
+  .status-dot.active {
+    @apply bg-blue-500;
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7);
+  }
+  
+  @keyframes pulse-dot {
+    0%, 100% {
+      opacity: 1;
+      transform: scale(1);
+      box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+    }
+    50% {
+      opacity: 0.8;
+      transform: scale(1.1);
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0);
+    }
+  }
+  
+  .status-dot.active {
+    animation-name: pulse-dot-active;
+  }
+  
+  @keyframes pulse-dot-active {
+    0%, 100% {
+      opacity: 1;
+      transform: scale(1);
+      box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7);
+    }
+    50% {
+      opacity: 0.8;
+      transform: scale(1.1);
+      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0);
+    }
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .status-dot {
+      animation: none;
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  /* Floating Button Micro-interaction */
+  .btn-float {
+    @apply transition-all duration-200 ease-out;
+    position: relative;
+    /* Default: Subtle lift */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1),
+                0 1px 3px rgba(0, 0, 0, 0.08);
+    transform: translateY(0);
+  }
+  
+  .dark .btn-float {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3),
+                0 1px 3px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Hover: Lift */
+  .btn-float:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12),
+                0 3px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .dark .btn-float:hover:not(:disabled) {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4),
+                0 3px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Active: Press */
+  .btn-float:active:not(:disabled) {
+    transform: translateY(0);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1),
+                0 1px 2px rgba(0, 0, 0, 0.08);
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+  }
+  
+  .dark .btn-float:active:not(:disabled) {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3),
+                0 1px 2px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Disabled state */
+  .btn-float:disabled {
+    transform: translateY(0) !important;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .btn-float,
+    .btn-float:hover,
+    .btn-float:active {
+      transform: translateY(0);
+      transition: none;
+    }
+  }
+  
+  .card {
+    @apply backdrop-blur-xl rounded-2xl shadow-lg dark:shadow-xl p-6 transition-all duration-300 hover:shadow-2xl dark:hover:shadow-2xl;
+    border-radius: 16px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    position: relative;
+    overflow: hidden;
+    background-color: var(--surface-card);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    /* Initialize CSS variables for mouse glow */
+    --mouse-x: 50%;
+    --mouse-y: 50%;
+  }
+  
+  /* Mouse-based glow effect */
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+      600px circle at var(--mouse-x) var(--mouse-y),
+      rgba(107, 114, 128, 0.1),
+      rgba(156, 163, 175, 0.05),
+      transparent 40%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 1;
+    border-radius: 16px;
+  }
+  
+  .card:hover::before {
+    opacity: 1;
+  }
+  
+  .dark .card::before {
+    background: radial-gradient(
+      600px circle at var(--mouse-x) var(--mouse-y),
+      rgba(107, 114, 128, 0.15),
+      rgba(156, 163, 175, 0.1),
+      transparent 40%
+    );
+  }
+  
+  /* Card content z-index is handled by component classes */
+  
+  .card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(107, 114, 128, 0.1), 0 0 0 1px rgba(156, 163, 175, 0.2);
+  }
+  
+  .dark .card:hover {
+    box-shadow: 0 20px 40px rgba(107, 114, 128, 0.15), 0 0 0 1px rgba(156, 163, 175, 0.3);
+  }
+  
+  /* Enhanced card with glow utility */
+  .card.glow-cyan {
+    transition: transform 0.25s ease, box-shadow 0.3s ease;
+  }
+  
+  .card.glow-cyan:hover {
+    transform: translateY(-8px);
+  }
+  
+  /* Glass morphism for cards */
+  .card.glass {
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+  }
+  
+  .dark .card.glass {
+    background: rgba(17, 24, 39, 0.75);
+  }
+  
+  /* Button press animation */
+  .btn-press:active {
+    transform: scale(0.97) translateY(0);
+  }
+  
+  /* Icon container with soft cyan glow */
+  .icon-glow {
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.15), rgba(59, 130, 246, 0.1));
+    transition: all 0.25s ease;
+  }
+  
+  .icon-glow:hover {
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.25), rgba(59, 130, 246, 0.2));
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(6, 182, 212, 0.3);
+  }
+  
+  .dark .icon-glow {
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(59, 130, 246, 0.15));
+  }
+  
+  .dark .icon-glow:hover {
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.3), rgba(59, 130, 246, 0.25));
+  }
+  
+  .input-field {
+    @apply w-full px-4 py-3 rounded-xl backdrop-blur-sm outline-none transition-all duration-[250ms] shadow-sm hover:shadow-md;
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+  }
+  
+  .input-field:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px var(--accent);
+    outline: none;
+  }
+  
+  .input-field::placeholder {
+    color: var(--text-placeholder);
+    opacity: 1;
+  }
+  
+  /* Textarea and select inherit input styles */
+  textarea.input-field,
+  select.input-field {
+    @apply w-full px-4 py-3 rounded-xl backdrop-blur-sm outline-none transition-all duration-[250ms] shadow-sm hover:shadow-md;
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+  }
+  
+  textarea.input-field:focus,
+  select.input-field:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px var(--accent);
+    outline: none;
+  }
+  
+  textarea.input-field::placeholder,
+  select.input-field::placeholder {
+    color: var(--text-placeholder);
+    opacity: 1;
+  }
+  
+  /* Muted text utility */
+  .text-muted {
+    color: var(--text-muted);
+  }
+  
+  /* Surface card utility */
+  .surface-card {
+    background-color: var(--surface-card);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+  }
+  
+  /* Secondary text utility */
+  .text-secondary {
+    color: var(--text-secondary);
+  }
+  
+  .gradient-logo {
+    @apply bg-gradient-to-r from-cyan-500 to-blue-600;
+  }
+  
+  .text-gradient {
+    @apply bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent;
+  }
+  
+  /* Utility classes for consistent text colors */
+  .text-body {
+    color: var(--text-primary);
+  }
+  
+  .text-label {
+    color: var(--text-secondary);
+  }
+  
+  .text-caption {
+    color: var(--text-muted);
+  }
+  
+  /* Badge/Chip styles */
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+  }
+  
+  /* Alert styles */
+  .alert {
+    @apply p-4 rounded-lg border;
+    background-color: var(--surface);
+    border-color: var(--border);
+    color: var(--text-primary);
+  }
+  
+  /* Table styles */
+  table {
+    color: var(--text-primary);
+  }
+  
+  th {
+    color: var(--text-secondary);
+    border-color: var(--border);
+  }
+  
+  td {
+    color: var(--text-primary);
+    border-color: var(--border);
+  }
+  
+  /* List styles */
+  li {
+    color: var(--text-primary);
+  }
+  
+  /* Ensure all form elements are visible */
+  label {
+    color: var(--text-secondary);
+  }
+  
+  /* Links with underline on hover */
+  a:not(.no-underline):hover {
+    text-decoration: underline;
+  }
+}
+
+@keyframes blob {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
+.animate-blob {
+  animation: blob 7s infinite;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+@keyframes gradient {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient 3s ease infinite;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+/* Tech grain/noise overlay - subtle texture with cyan tones */
+.tech-grain {
+  background-image: 
+    repeating-linear-gradient(
+      0deg,
+      rgba(6, 182, 212, 0.02) 0px,
+      transparent 1px,
+      transparent 2px,
+      rgba(6, 182, 212, 0.02) 3px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(59, 130, 246, 0.02) 0px,
+      transparent 1px,
+      transparent 2px,
+      rgba(59, 130, 246, 0.02) 3px
+    );
+  background-size: 4px 4px;
+  mix-blend-mode: overlay;
+}
+
+.dark .tech-grain {
+  background-image: 
+    repeating-linear-gradient(
+      0deg,
+      rgba(6, 182, 212, 0.03) 0px,
+      transparent 1px,
+      transparent 2px,
+      rgba(6, 182, 212, 0.03) 3px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(59, 130, 246, 0.03) 0px,
+      transparent 1px,
+      transparent 2px,
+      rgba(59, 130, 246, 0.03) 3px
+    );
+}
+
