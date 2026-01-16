@@ -22,7 +22,7 @@ import { useNavigate } from 'react-router-dom'
 import MandalaBackground from './components/common/MandalaBackground'
 import AIBackground from './components/common/AIBackground'
 import './App.css'
-import GlobalChatAssistant from "./components/chat/GlobalChatAssistant"
+import GlobalChatAssistant from "./components/Chat/GlobalChatAssistant"
 
 
 // Error Boundary Component
